@@ -1,4 +1,8 @@
 /**
+ * @module Either
+ */
+
+/**
  * Internal unique identifier for `Left`.
  */
 export const lid = Symbol.for('@@functional/left')
@@ -17,10 +21,8 @@ export type Left<Value> = {
  * Creates the special object with one property, represented as unique symbol
  * key, holding the provided value.
  */
-export function left<Value> (value: Value): Left<Value> {
+export default function left<Value> (value: Value): Left<Value> {
   return {
     [lid]: value
   }
 }
-
-export default left

@@ -1,14 +1,14 @@
 {
   "extends": "./tsconfig.json",
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "fnts/*": ["src/*"]
-    },
-    
-    "declaration": false
+    "target": "es5",
+    "module": "commonjs",
+
+    "noEmit": true,
+    "declaration": false,
+    "declarationDir": null,
+    "emitDeclarationOnly": null
   },
   
-  "include": ["src",
-    "tests", "jest.config.js"]
+  "include": ["src", "tests", "jest.config.js"]
 }

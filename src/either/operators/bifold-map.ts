@@ -1,7 +1,12 @@
+/**
+ * @module Either Operators
+ */
+
 import compose from '../../compose'
 import type { Either } from '../either'
-import type { Map } from '../../.internal/map'
-import permutationOf3 from '../../.internal/permutation-of-3'
+import ternary from '../../ternary'
+import type { Map } from '../../types/map'
+import permutation3 from '../../permutation/permutation-3'
 
 import { isLeft } from './guards'
 import { bifoldl, bifoldr } from './bifold'
@@ -10,7 +15,7 @@ import { bifoldl, bifoldr } from './bifold'
  * Maps left and right values of the provided `monad` to a value,
  * then returns it.
  */
-export function bifoldMap<
+export default function bifoldMap<
   LeftValue,
   RightValue,
   MappedValue
@@ -25,7 +30,7 @@ export function bifoldMap<
  * Maps left and right values of the provided `monad` to a value,
  * then returns it.
  */
-export function bifoldMap<
+export default function bifoldMap<
   LeftValue,
   RightValue,
   MappedValue
@@ -35,8 +40,8 @@ export function bifoldMap<
   mapRight: Map<RightValue, MappedValue>,
 ): MappedValue
 
-export function bifoldMap (...args: [any, any, any?]) {
-  return permutationOf3(
+export default function bifoldMap (...args: [any, any, any?]): any {
+  return permutation3(
     <
       LeftValue,
       RightValue,
@@ -46,11 +51,11 @@ export function bifoldMap (...args: [any, any, any?]) {
       mapLeft: Map<LeftValue, MappedValue>,
       mapRight: Map<RightValue, MappedValue>,
     ): MappedValue => {
-      return isLeft(monad)
-        ? compose(mapLeft, bifoldl)(monad)
-        : compose(mapRight, bifoldr)(monad)
+      return ternary(
+        isLeft,
+        compose(mapLeft, bifoldl),
+        compose(mapRight, bifoldr)
+      )(monad)
     }
   )(...args)
 }
-
-export default bifoldMap

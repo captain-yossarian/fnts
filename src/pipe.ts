@@ -1,4 +1,8 @@
-import type { Last } from './.internal/last'
+/**
+ * @module Composition
+ */
+
+import type { Last } from './types/last'
 
 /**
  * Creates a `Pipeline` type which parses all of the provided functions' types.
@@ -29,12 +33,13 @@ export type Pipeline<
  * Applies all of the provided `functions` one-by-one in left-to-right order
  * starting from the `argument`.
  */
-export function pipe
+export default function pipe
   <Functions extends Array<(arg: any) => any>> (
     ...functions: Pipeline<Functions>
   ): (arg: Parameters<Functions[0]>[0]) => ReturnType<Last<Functions>> {
   return (arg) => {
     const length = (functions as any[]).length
+
     let pipeline = arg
 
     for (let index = 0; index < length; index += 1) {
@@ -46,5 +51,3 @@ export function pipe
     return pipeline
   }
 }
-
-export default pipe

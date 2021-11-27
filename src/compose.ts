@@ -1,4 +1,8 @@
-import type { Last } from './.internal/last'
+/**
+ * @module Composition
+ */
+
+import type { Last } from './types/last'
 
 /**
  * Creates a `Composition` type which parses all of the provided functions' types.
@@ -30,11 +34,12 @@ export type Composition<
  * Applies all of the provided `functions` one-by-one in right-to-left order
  * starting from the `argument`.
  */
-export function compose<Functions extends Array<(arg: any) => any>> (
+export default function compose<Functions extends Array<(arg: any) => any>> (
   ...functions: Composition<Functions>
 ): (arg: Parameters<Last<Functions>>[0]) => ReturnType<Functions[0]> {
   return (arg) => {
     const length = (functions as any[]).length
+
     let composition = arg
 
     for (let index = length - 1; index >= 0; index -= 1) {
@@ -46,5 +51,3 @@ export function compose<Functions extends Array<(arg: any) => any>> (
     return composition as ReturnType<Functions[0]>
   }
 }
-
-export default compose

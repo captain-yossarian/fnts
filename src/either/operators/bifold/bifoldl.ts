@@ -1,3 +1,7 @@
+/**
+ * @module Either Operators
+ */
+
 import { isLeft } from '../guards'
 import { Left, lid } from '../../left'
 import type { Either } from '../../either'
@@ -15,12 +19,10 @@ export type Bifoldl<Monad extends Either<any, any>> =
  * Returns the left value of the provided `monad`.
  * If the `monad` is `Right`, returns `undefined`.
  */
-export function bifoldl<Monad extends Either<any, any>> (
+export default function bifoldl<Monad extends Either<any, any>> (
   monad: Monad
 ): Bifoldl<Monad> {
   return isLeft(monad)
     ? monad[lid]
     : undefined
 }
-
-export default bifoldl

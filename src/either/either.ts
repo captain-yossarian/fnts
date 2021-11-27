@@ -1,3 +1,7 @@
+/**
+ * @module Either
+ */
+
 import left, { Left } from './left'
 import right, { Right } from './right'
 
@@ -13,12 +17,10 @@ export type Either<LeftValue, RightValue> = Left<LeftValue> | Right<RightValue>
  * Creates either `Right` of the value provided,
  * or `Left` of the error thrown.
  */
-export function either<LeftValue, RightValue> (
+export default function either<LeftValue, RightValue> (
   value: () => Promise<RightValue>
 ): Promise<Either<LeftValue, RightValue>> {
   return value()
     .then(right)
     .catch(left)
 }
-
-export default either
