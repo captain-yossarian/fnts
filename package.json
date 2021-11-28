@@ -1,6 +1,6 @@
 {
   "name": "fnts",
-  "version": "1.3.0",
+  "version": "1.3.1",
   "license": "MIT",
   "author": "Dmytro Vasylkivskyi",
   "description": "TypeScript / JavaScript FP utilities",
@@ -18,16 +18,15 @@
     "prebuild": "rimraf lib",
     "copy:dts": "copyfiles --up 1 --all \"./src/**/*.d.ts\" lib",
     "build:dts": "tsc -p tsconfig.declaration.json",
-    "build:esm": "tsc -p tsconfig.build.esm.json",
-    "build:cjs": "tsc -p tsconfig.build.cjs.json",
-    "build": "npm-run-all -p copy:dts build:dts build:cjs build:esm",
+    "build:js": "tsc -p tsconfig.build.json",
+    "build": "npm-run-all -p copy:dts build:dts build:js",
     "lint": "tsc -p tsconfig.ci.json",
     "test": "jest",
     "test:coverage": "jest --coverage",
     "ci": "npm-run-all -s lint build test",
     "bump": "standard-version",
     "prerelease": "node scripts/prerelease.js",
-    "release": "yarn publish lib"
+    "release": "yarn publish lib --non-interactive"
   },
   "devDependencies": {
     "@babel/core": "7.12.17",
